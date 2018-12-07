@@ -1,0 +1,31 @@
+import React from 'react'
+import queryString from 'query-string'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import Cookies from 'js-cookie'
+
+function DropboxCallback({ location, persistToken, token }) {
+  const code = queryString.parse(location.search).code
+  if (code && code.length > 0) persistToken(code)
+
+  return <div>
+    { token }
+  </div>
+}
+
+function mapStateToProps(state) {
+  return {
+    token: state.dropbox.token
+  }
+}
+
+function mapDisptachToProps(dispatch) {
+  return {
+    persistToken: (token) => {
+      Cookies.set('dropboxToken', token, { expires: 7 })
+      dispatch({ type: 'LOGIN', payload: { token } })
+    }
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDisptachToProps)(DropboxCallback))
