@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import queryString from 'query-string'
 
 const APP_ID = process.env.REACT_APP_DROPBOX_APP_ID
+const APP_SECRET = process.env.REACT_APP_DROPBOX_APP_SECRET
+const REDIRECT_URI = process.env.REACT_APP_DROPBOX_CALLBACK_URL
 
-export default function Callback(props) {
-  const [authCode, setAuthCode] = useState()
-  const [token, setToken] = useState()
-
+function Callback({ persistDropboxToken, history: { push } }) {
   useEffect(() => {
-    setAuthCode(queryString.parse(document.location.search).code)
-  }, [])
-
-  useEffect(() => {
-    const auth = Buffer.from(APP_ID).toString('base64')
+    const authCode = queryString.parse(document.location.search).code
+    const auth = Buffer.from(`${APP_ID}:${APP_SECRET}`).toString('base64')
     fetch("https://api.dropboxapi.com/oauth2/token", {
-      body: `code=${authCode}&grant_type=authorization_code`,
+      body: `code=${authCode}&grant_type=authorization_code&redirect_uri=${REDIRECT_URI}`,
       headers: {
         Authorization: `Basic ${auth}`,
         "Content-Type": "application/x-www-form-urlencoded" },
@@ -26,11 +24,20 @@ export default function Callback(props) {
           alert(json.error_description)
           return
         }
-        setToken(json.access_token)
+        persistDropboxToken(json.access_token)
+        push('/dashboard')
       })
-  }, [ authCode ])
+  }, [])
 
-  return <div>
-
-  </div>
+  return <div />
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    persistDropboxToken: (token) => {
+      dispatch({ type: 'DROPBOX_AUTH', payload: token })
+    }
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(Callback))

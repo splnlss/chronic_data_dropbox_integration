@@ -7,6 +7,8 @@ import './index.css';
 import App from './App';
 import store from './config/store'
 
+require('es6-promise').polyfill()
+
 const app = (
   <Provider store={store}>
     <BrowserRouter>
