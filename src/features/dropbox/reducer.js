@@ -5,6 +5,11 @@ export default function dropboxReducer(state={}, action) {
         token: action.payload
       }
 
+    case 'SAVE_PROVIDERS':
+      return {
+        providers: action.payload
+      }
+
     default:
       return state
   }

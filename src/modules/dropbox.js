@@ -17,13 +17,17 @@ class DropboxClient {
     return this.client.filesListFolder({path: '/documents'})
   }
 
-  document(name) {
-    this.documents().find(document => document.filename)
-  }
-
   db() {
-
+    return this.client.filesListFolder({path: ''})
   }
+
+  document(name) {
+    this.documents()
+    .then(response => {
+      response.entities.find(document => document.filename)
+    })
+  }
+
 }
 
 export default DropboxClient 

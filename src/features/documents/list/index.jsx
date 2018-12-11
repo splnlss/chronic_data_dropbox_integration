@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DropboxClient from '../../modules/dropbox'
+import DropboxClient from '../../../modules/dropbox'
 
 export default function Documents({ token }) {
   const [documents, setDocuments] = useState([])

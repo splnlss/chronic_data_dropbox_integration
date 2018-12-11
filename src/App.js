@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import DropboxLogin from './features/dropbox/login'
 import DropboxCallback from './features/dropbox/callback'
 import Dashboard from './features/dashboard'
-import Documents from './features/documents'
+import Documents from './features/documents/list'
 import requiresAuth from './components/requires-auth'
 
 class App extends Component {
