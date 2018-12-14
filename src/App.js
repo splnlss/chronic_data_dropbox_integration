@@ -6,6 +6,7 @@ import DropboxLogin from './features/dropbox/login'
 import DropboxCallback from './features/dropbox/callback'
 import Dashboard from './features/dashboard'
 import Documents from './features/documents/list'
+import Providers from './features/providers'
 import requiresAuth from './components/requires-auth'
 
 import './app.css'
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path={`/auth/dropbox/callback`} component={DropboxCallback} />
         <Route path={`/dashboard`} component={requiresAuth(<Dashboard />)} />
         <Route path={`/documents`} component={requiresAuth(<Documents token={this.props.dropboxToken} />)} />
+        <Route path={`/providers`} component={requiresAuth(<Providers />)} />
       </Switch>
     </div>
   }

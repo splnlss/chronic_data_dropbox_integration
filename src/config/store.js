@@ -1,10 +1,13 @@
 import { compose, createStore, combineReducers } from 'redux'
 import persistState from 'redux-localstorage'
 
+
 import dropboxReducer from '../features/dropbox/reducer'
+import providersReducer from '../features/providers/reducer'
 
 const rootReducer = combineReducers({
-  dropbox: dropboxReducer
+  dropbox: dropboxReducer,
+  providers: providersReducer
 })
 
 const enhancer = compose(
