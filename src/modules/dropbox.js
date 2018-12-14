@@ -1,6 +1,16 @@
 import { Dropbox } from 'dropbox';
 import fetch from 'isomorphic-fetch'
 
+
+function getPreviewer(path, client) { 
+  const ext = `.${path.split('.').reverse()[0]}`
+  const extensions = ".csv, .ods, .xls, .xlsm, .xlsx, .ai, .doc, .docm, .docx, .eps, .odp, .odt, .pps, .ppsm, .ppsx, .ppt, .pptm, .pptx, .rtf".split(', ')
+  if (extensions.includes(ext)) {
+    return client.filesGetPreview({path})
+  } else {
+    return client.filesGetThumbnail({path})
+  }
+}
 class DropboxClient {
   constructor(token) {
     this.token = token
@@ -21,10 +31,14 @@ class DropboxClient {
     return this.client.filesListFolder({path: ''})
   }
 
-  document(name) {
-    this.documents()
-    .then(response => {
-      response.entities.find(document => document.filename)
+  document(path) {
+    return getPreviewer(path, this.client).then(response => {
+      var blob = response.fileBlob
+      return new Promise((resolve, reject) => {
+        var reader = new FileReader()
+        reader.onload = resolve
+        reader.readAsDataURL(blob)
+      })
     })
   }
 

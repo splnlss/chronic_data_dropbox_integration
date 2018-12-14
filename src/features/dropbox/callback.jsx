@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
+import Cookies from 'js-cookie'
 
 import authorize from './authorize'
 
@@ -28,6 +29,7 @@ function Callback({ persistDropboxToken, history: { push } }) {
 function mapDispatchToProps(dispatch) {
   return {
     persistDropboxToken: (token) => {
+      Cookies.set('dropboxToken', token)
       dispatch({ type: 'DROPBOX_AUTH', payload: token })
     },
   }

@@ -8,6 +8,7 @@ import Dashboard from './features/dashboard'
 import Documents from './features/documents/list'
 import requiresAuth from './components/requires-auth'
 
+import './app.css'
 class App extends Component {
   render() {
     return <div>

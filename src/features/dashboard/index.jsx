@@ -2,10 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import loadDropboxDb from './load-dropbox-db'
+import { loadDropboxDb, persistDropboxFiles } from './api'
 
-function Dashboard({ persistProviders, token }) {
+function Dashboard({ persistProviders, persistFiles, token }) {
   loadDropboxDb({persistProviders, token, next: () => {}})
+  persistDropboxFiles({token, persistFiles})
+  
+
   return <div>
     Welcome to Chronic Data!
     <div>auth token: { token }</div>
@@ -24,7 +27,10 @@ function mapStateToProps(state) {
 function mapDispatchToproviders(dispatch) {
   return {
     persistProviders: (providers) => {
-      dispatch({ type: 'SAVE_PROVIDERS', payload: providers })
+      dispatch({ type: 'PERSIST_PROVIDERS', payload: providers })
+    },
+    persistFiles: (files) => {
+      dispatch({ type: 'PERSIST_FILES', payload: files })
     }
   }
 }
