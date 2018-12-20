@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-pdf/renderer": "^1.1.0",
     "dropbox": "^4.0.14",
     "es6-promise": "^4.2.5",
     "isomorphic-fetch": "^2.2.1",
