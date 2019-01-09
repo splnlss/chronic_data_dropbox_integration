@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DropboxClient from '../../../modules/dropbox'
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 export default function Documents({ token }) {
   const [documents, setDocuments] = useState([])
