@@ -9,10 +9,14 @@ import Documents from './features/documents/list'
 import Providers from './features/providers'
 import requiresAuth from './components/requires-auth'
 
+import Header from './components/header/'
+
 import './app.css'
 class App extends Component {
   render() {
     return <div>
+      <Header />
+      <main>
       <Switch>
         <Route path={`/login`} component={DropboxLogin} />
         <Route path={`/auth/dropbox/callback`} component={DropboxCallback} />
@@ -20,6 +24,7 @@ class App extends Component {
         <Route path={`/documents`} component={requiresAuth(<Documents token={this.props.dropboxToken} />)} />
         <Route path={`/providers`} component={requiresAuth(<Providers />)} />
       </Switch>
+      </main>
     </div>
   }
 }

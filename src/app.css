@@ -1,14 +1,30 @@
-body {
-  margin: 0 10% 0 10%;
-  padding: 0;
-  font-family: sans-serif;
-  padding: 10px;
+body *{
+  box-sizing: border-box;
 }
 
-h2, h3 {
+html {
+  height: 100%;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  color: darkslategrey;
+  padding:0;
   margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #FFFFFF;
+
 }
 
-h2 {
-  color: dark;
+main {
+  padding-top: 20px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom:30px;
 }
