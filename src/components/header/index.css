@@ -29,5 +29,9 @@ nav li {
 }
 
 a:hover { 
-  color: darkslategrey;
+  color: #2F4F4F;
+}
+
+a:visited{
+  color: #ffffff;
 }

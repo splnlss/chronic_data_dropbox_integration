@@ -34,9 +34,7 @@ export default function Documents({ token }) {
         {
           documents.map(document => <tr>
             <td>
-            <Document
-                  file="{document.name}"
-                >
+            <Document file="{document.name}">
                   <Page pageNumber={1} />
             </Document>
             {document.name}</td>
