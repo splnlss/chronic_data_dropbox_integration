@@ -32,3 +32,15 @@ main {
   margin-right: auto;
   padding-bottom:30px;
 }
+
+
+
+@media only screen and (max-width: 640px) {
+
+  main{
+    width:90%;
+    margin-left:auto;
+    margin-right: auto;
+    padding:0;
+  }
+}

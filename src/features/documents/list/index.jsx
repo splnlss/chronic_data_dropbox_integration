@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DropboxClient from '../../../modules/dropbox'
 import { Document, Page } from 'react-pdf';
 
@@ -7,9 +7,11 @@ export default function Documents({ token }) {
   const [preview, setPreview] = useState()
   const dropbox = new DropboxClient(token)
     
-  dropbox.documents().then((response) => {
-    setDocuments(response.entries)
-  })
+  useEffect(() => {
+    dropbox.documents().then((response) => {
+      setDocuments(response.entries)
+    })
+  }, [])
 
   function viewFileContents(path) {
     dropbox.document(path).then(response => {
@@ -34,7 +36,10 @@ export default function Documents({ token }) {
         {
           documents.map(document => <tr>
             <td>
-            <Document file="{document.name}">
+              { document.lower_path }
+            <Document
+                  file={document.lower_path}
+                >
                   <Page pageNumber={1} />
             </Document>
             {document.name}</td>

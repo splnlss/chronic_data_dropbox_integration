@@ -8,7 +8,6 @@ function ProviderRow({ provider }){
     <td>{ provider.address }</td>
     <td>{ provider.email }</td>
   </Fragment>
-
 }
 
 export default function ProviderFinder({ providers, onProviderChange }){
