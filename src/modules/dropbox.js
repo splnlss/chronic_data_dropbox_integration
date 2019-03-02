@@ -11,6 +11,21 @@ function getPreviewer(path, client) {
     return client.filesGetThumbnail({path})
   }
 }
+
+function getFileContents(path, client) {
+  return new Promise((resolve, reject) => {
+    client.filesDownload({path})
+    .then(function(response) {
+        var blob = response.fileBlob;
+        var reader = new FileReader();
+        reader.addEventListener("loadend", function() {
+            resolve(reader.result)
+        });
+        reader.readAsText(blob);
+    })
+    .catch(err => reject(err))
+  })
+}
 class DropboxClient {
   constructor(token) {
     this.token = token
@@ -32,14 +47,7 @@ class DropboxClient {
   }
 
   document(path) {
-    return getPreviewer(path, this.client).then(response => {
-      var blob = response.fileBlob
-      return new Promise((resolve, reject) => {
-        var reader = new FileReader()
-        reader.onload = resolve
-        reader.readAsDataURL(blob)
-      })
-    })
+    return getFileContents(path, this.client)
   }
 
 }

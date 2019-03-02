@@ -1,37 +1,33 @@
 import React from 'react'
 import './index.css'
+import { Link } from 'memfs/lib/node';
 
 export default function Header(){
+  const links = [
+    {name: 'Documents', url: '/documents'},
+    {name: 'Providers', url: '/providers'},
+    {name: 'Account', url: '/account'},
+    {name: 'Logout', url: '/logout'}
+  ]
+
+  const renderedLinks = links.map(link => {
+    return (
+      <li>
+        <a href={link.url}>{link.name}</a>
+      </li>
+    )
+  })
 
   return <div> 
     <header>
-      <div class="headerContainer">
-        <div class="siteHeader_section">
+      <div className="headerContainer">
+        <div className="siteHeader_section">
           <h1><a id="title">Chronic Data</a></h1>
         </div>
-        <div class="siteHeader_section">
+        <div className="siteHeader_section">
          <nav>
           <ul>
-           <li>
-              <h4>
-                <a href="/documents">Documents</a>
-              </h4>
-            </li>
-            <li>
-              <h4>
-                <a href="/providers">Providers</a>
-              </h4>
-            </li>
-            <li>
-              <h4>
-                <a href="/account">Account</a>
-              </h4>
-            </li>
-            <li>
-              <h4>
-                <a href="/logout">Logout</a>
-              </h4>
-            </li>
+            {renderedLinks}
           </ul>
         </nav>
         </div>

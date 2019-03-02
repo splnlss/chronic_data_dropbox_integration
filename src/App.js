@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import DropboxLogin from './features/dropbox/login'
+import DropboxLogout from './features/dropbox/logout'
 import DropboxCallback from './features/dropbox/callback'
 import Dashboard from './features/dashboard'
 import Documents from './features/documents/list'
@@ -19,6 +20,7 @@ class App extends Component {
       <main>
       <Switch>
         <Route path={`/login`} component={DropboxLogin} />
+        <Route path={`/logout`} component={DropboxLogout} />
         <Route path={`/auth/dropbox/callback`} component={DropboxCallback} />
         <Route path={`/dashboard`} component={requiresAuth(<Dashboard />)} />
         <Route path={`/documents`} component={requiresAuth(<Documents token={this.props.dropboxToken} />)} />

@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import DropboxClient from '../../../modules/dropbox'
-import { Document, Page } from 'react-pdf';
+import { Document } from 'react-pdf'
 
 export default function Documents({ token }) {
   const [documents, setDocuments] = useState([])
-  const [preview, setPreview] = useState()
   const dropbox = new DropboxClient(token)
     
   useEffect(() => {
     dropbox.documents().then((response) => {
-      setDocuments(response.entries)
+      response.entries.forEach(entry => {
+          return dropbox.document(entry.path_lower).then(response => {
+            setDocuments(prevState => ([
+              ...prevState,
+              {
+                name: entry.name,
+                path: entry.path_lower,
+                contents: response
+              }
+            ]))
+          })
+       })
     })
   }, [])
 
-  function viewFileContents(path) {
-    dropbox.document(path).then(response => {
-      setPreview(response.currentTarget.result)
-
-    })
-  }
 
   return <div>
     <h1>Documents</h1>
-
-    <iframe src={preview} />
 
     <table>
       <thead>
@@ -36,14 +38,10 @@ export default function Documents({ token }) {
         {
           documents.map(document => <tr>
             <td>
-              { document.lower_path }
-            <Document
-                  file={document.lower_path}
-                >
-                  <Page pageNumber={1} />
-            </Document>
-            {document.name}</td>
-            {/* <td onClick={() => viewFileContents(document.path_lower)}>{document.name}</td> */}
+              { document.path } - {document.name}
+              <iframe src={document.contents} />
+            </td>
+  
           </tr>)
         }
       </tbody>

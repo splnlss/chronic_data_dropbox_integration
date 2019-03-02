@@ -14,7 +14,7 @@ function Callback({ persistDropboxToken, history: { push } }) {
   useEffect(() => {
     const authCode = queryString.parse(document.location.search).code
     const credentials = Buffer.from(`${APP_ID}:${APP_SECRET}`).toString('base64')
-    authorize({
+    authorize({ 
       authCode,
       credentials,
       redirectUri: REDIRECT_URI, 
