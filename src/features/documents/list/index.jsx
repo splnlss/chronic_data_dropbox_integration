@@ -8,6 +8,7 @@ export default function Documents({ token }) {
     
   useEffect(() => {
     dropbox.documents().then((response) => {
+      console.log(response.entries)
       response.entries.forEach(entry => {
           return dropbox.document(entry.path_lower).then(response => {
             setDocuments(prevState => ([
@@ -37,8 +38,9 @@ export default function Documents({ token }) {
       
         {
           documents.map(document => <tr>
+            <td><a href={document.path}>{document.name}</a></td> 
             <td>
-              { document.path } - {document.name}
+              {/* { document.path } - {document.name} */}
               <iframe src={document.contents} />
             </td>
   

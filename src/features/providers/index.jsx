@@ -13,7 +13,7 @@ function Providers({providers}){
   }
 
   if (selectedProvider) {
-    document.location.href=`mailto:${selectedProvider.email}`
+    // document.location.href=`mailto:${selectedProvider.email}`
   }
   return <div>
     <ProviderFinder providers={providers} onProviderChange={onProviderChange} />
